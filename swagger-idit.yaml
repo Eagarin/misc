@@ -1,0 +1,132 @@
+swagger: "2.0"
+info:
+  description: "Draft IDIT API to get policy information"
+  version: "1.0.0"
+  title: "IDIT API - Policy Information "
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "eagarin@terrabit.co.th"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/v1"
+schemes:
+- "http"
+paths:
+  /policy/:
+    get:
+      tags:
+      - "policy"
+      summary: "Find Policy/Proposal by Customer Name"
+      description: ""
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "Customer First name"
+        required: true
+        type: "string"
+      - name: "surname"
+        in: "query"
+        description: "Customer Surname"
+        required: true
+        type: "string"
+      - name: "telephone"
+        in: "query"
+        description: "Customer Telephone Number"
+        required: true
+        type: "string"
+      - name: "proposalNo"
+        in: "query"
+        description: "Proposal Number"
+        type: "string"  
+      - name: "policyNo"
+        in: "query"
+        description: "Proposal Number"
+        type: "string"  
+        
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties: 
+              data: 
+                type: "array"
+                items:
+                  $ref: "#/definitions/policy"
+              error: 
+                type: "object"
+                properties:
+                  code: 
+                    type: "integer"
+                    example: 101
+                  message:
+                    type: "string"
+                    example: "Required Telephone Number"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+      security:
+      - Bearer: []
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  policy:
+    type: "object"
+    properties:
+      proposalNo:
+        type: "string"
+        example: "MT/00022254/03"
+      policyNo:
+        type: "string"
+        example: "MT/00022254/03"
+      claimCount:
+        type: "integer"
+        example: 5
+      claimAtFaultCount:
+        type: "integer"
+        example: 2
+      collectionMethod:
+        type: "string"
+        example: "Credit Card"
+      paymentTerm:
+        type: "string"
+        example: "Monthly"
+      carCamera:
+        type: "boolean"
+        example: false 
+      carPlateNo:
+        type: "string"
+        example: "1กก9999"   
+      expiredDate:
+        type: "string"
+        example: "2020-12-31"    
+        description: "Date Format:YYYY-MM-DD"
+      yearlySumInsured:
+        type: "number"
+        example: 999999.99
+      yearlyPremium:
+        type: "number"
+        example: 99999.99
+      plan:
+        type: "string"
+        example: "Flexible Plan" 
+      compulsory:
+        type: "boolean"
+        example: true
+      voluntaryType:
+        type: "string"
+        example: "Voluntary Type1"
+      accessory:
+        type: "boolean"
+        example: true
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
